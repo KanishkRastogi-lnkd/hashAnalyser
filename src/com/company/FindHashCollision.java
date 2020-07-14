@@ -17,7 +17,7 @@ import com.google.common.hash.Hashing;
 
 
 public class FindHashCollision implements Callable<Result> {
-  private static final int SKIP_MAX = 31;
+  private static final int SKIP_MAX = 17;
   int id;
   ConcurrentTrie map;
   int idx1;

@@ -1,30 +1,6 @@
 package com.company;
 
-import java.util.concurrent.ConcurrentHashMap;
-
-
 public class ConcurrentTrie {
-  class TriNode {
-    ConcurrentHashMap <Byte, TriNode> _map = new ConcurrentHashMap<>(256);
-    TriNode(boolean isLastNode) {
-      if (!isLastNode) {
-        _map = new ConcurrentHashMap<>();
-        _map.clear();
-      } else {
-        _map = null;
-      }
-    }
-
-    public TriNode putIfAbsent(byte b, boolean isLastNode) {
-      TriNode t = new TriNode(isLastNode);
-      _map.putIfAbsent(b, t);
-      return _map.get(b);
-    }
-
-    public TriNode get(Byte b) {
-      return _map.get(b);
-    }
-  }
 
   TriNode _rootNode;
   public ConcurrentTrie() {
@@ -35,7 +11,7 @@ public class ConcurrentTrie {
     TriNode curNode = _rootNode;
     for (int i = 0; i < 4; i++) {
       byte b = (byte) (l & 0xFF);
-      curNode = curNode.get(b);
+      curNode = curNode.get(b, i == 3);
       if (curNode == null) return false;
       l = l>>8;
     }
